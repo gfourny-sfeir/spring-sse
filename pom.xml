@@ -24,6 +24,7 @@
     <project.scm.id>github</project.scm.id>
     <logback-ecs-encoder.version>1.7.0</logback-ecs-encoder.version>
     <reactor-core.version>3.7.6</reactor-core.version>
+    <vavr.version>0.10.6</vavr.version>
   </properties>
 
   <dependencies>
@@ -80,7 +81,7 @@
     <dependency>
       <groupId>io.vavr</groupId>
       <artifactId>vavr</artifactId>
-      <version>0.10.6</version>
+      <version>${vavr.version}</version>
     </dependency>
   </dependencies>
 
