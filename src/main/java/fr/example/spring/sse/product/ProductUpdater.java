@@ -28,17 +28,14 @@ public class ProductUpdater {
      */
     @Transactional
     public Product updateQuantity(String ean, Integer quantity) {
-        final var produit = produitRepository.findByEan(ean).orElseThrow(() -> new IllegalArgumentException("Product not found"));
 
-        final var updatedProduit = produit.updateQuantite(quantity);
-
-        produitRepository.save(updatedProduit);
-
-        return Product.create(
-                updatedProduit.getEan(),
-                updatedProduit.getNom(),
-                updatedProduit.getQuantite(),
-                updatedProduit.getPrix()
-        );
+        return produitRepository.findByEan(ean)
+                .map(produit -> produit.updateQuantite(quantity))
+                .map(produit -> Product.create(
+                        produit.getEan(),
+                        produit.getNom(),
+                        produit.getQuantite(),
+                        produit.getPrix()))
+                .orElseThrow(() -> new IllegalArgumentException("Product not found"));
     }
 }
