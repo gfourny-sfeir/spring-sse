@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    password: docker
+    username: docker
+    url: jdbc:postgresql://localhost:5432/docker
+  # SQL initialization
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema.sql
+      data-locations: classpath:data.sql
+      continue-on-error: false
+  # JPA Configuration
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: false
+    defer-datasource-initialization: true
+
+app:
+  channel-to-listen: produit_quantite_change
+  heartbeat-interval-seconds: 15

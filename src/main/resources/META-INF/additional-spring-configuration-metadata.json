@@ -1,0 +1,24 @@
+{
+  "groups": [
+    {
+      "name": "app",
+      "type": "fr.example.spring.sse.config.ApplicationProperties",
+      "sourceType": "fr.example.spring.sse.config.ApplicationProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "app.channel-to-listen",
+      "type": "java.lang.String",
+      "sourceType": "fr.example.spring.sse.config.ApplicationProperties",
+      "description": "Nom de la notification PostgreSQL."
+    },
+    {
+      "name": "app.heartbeat-interval-seconds",
+      "type": "java.lang.Integer",
+      "sourceType": "fr.example.spring.sse.config.ApplicationProperties",
+      "description": "Interval d'émission d'un heartbeat permettant de garder la connexion ouverte en seconde.",
+      "defaultValue": 15
+    }
+  ]
+}

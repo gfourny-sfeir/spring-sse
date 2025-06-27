@@ -1,0 +1,29 @@
+services:
+  postgres:
+    image: postgres:17.2-alpine
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready" ]
+      interval: 5s
+      timeout: 30s
+      retries: 5
+      start_period: 5s
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=docker
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    volumes:
+      - pgadmindata_dev:/var/lib/pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: docker@docker.com
+      PGADMIN_DEFAULT_PASSWORD: docker
+    ports:
+      - "8888:80"
+
+volumes:
+  pgadmindata_dev :
