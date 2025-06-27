@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import fr.example.spring.sse.product.model.Product;
+import fr.example.spring.sse.product.repositories.Produit;
 import fr.example.spring.sse.product.repositories.ProduitRepository;
 
 /**
@@ -31,11 +32,16 @@ public class ProductUpdater {
 
         return produitRepository.findByEan(ean)
                 .map(produit -> produit.updateQuantite(quantity))
-                .map(produit -> Product.create(
-                        produit.getEan(),
-                        produit.getNom(),
-                        produit.getQuantite(),
-                        produit.getPrix()))
+                .map(this::mapProduitToProduct)
                 .orElseThrow(() -> new IllegalArgumentException("Product not found"));
+    }
+
+    private Product mapProduitToProduct(Produit produit) {
+        return Product.create(
+                produit.getEan(),
+                produit.getNom(),
+                produit.getQuantite(),
+                produit.getPrix()
+        );
     }
 }
