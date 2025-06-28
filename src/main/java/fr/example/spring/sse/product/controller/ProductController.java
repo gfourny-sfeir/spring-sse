@@ -19,6 +19,7 @@ import fr.example.spring.sse.product.controller.dto.QuantityProductResponse;
 import fr.example.spring.sse.product.controller.dto.UpdateQuantityProduct;
 import fr.example.spring.sse.product.spi.EmitProduct;
 import io.vavr.Function0;
+import io.vavr.Function2;
 
 /**
  * Contrôleur REST pour la gestion des produits.
@@ -65,10 +66,10 @@ class ProductController {
     @PutMapping("/{ean}")
     ResponseEntity<QuantityProductResponse> updateProduct(@RequestBody UpdateQuantityProduct updateQuantityProduct, @PathVariable String ean) {
 
-        return Function0.of(() -> productUpdater.updateQuantity(ean, updateQuantityProduct.quantity()))
+        return Function2.of(productUpdater::updateQuantity)
                 .andThen(QuantityProductResponse::createFromProduct)
                 .andThen(ResponseEntity::ok)
-                .apply();
+                .apply(ean, updateQuantityProduct.quantity());
     }
 
     /**
